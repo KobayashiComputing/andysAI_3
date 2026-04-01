@@ -1,6 +1,23 @@
-def main():
-    print("Hello from andysai-3!")
+import os, sys
+from dotenv import load_dotenv
+from google import genai
 
+load_dotenv()
+api_key = os.environ.get("GEMINI_API_KEY")
+if api_key == None:
+    print("No valid API key found... exiting...")
+    sys.exit(1)
+
+client = genai.Client(api_key=api_key)
+
+def main():
+    print("Hello from andysAI_3!")
+    response = client.models.generate_content(
+        model='gemini-2.5-flash-lite',
+        # contents='Why is the sky blue?'
+        contents='Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum.'
+    )
+    print(response.text)
 
 if __name__ == "__main__":
     main()
